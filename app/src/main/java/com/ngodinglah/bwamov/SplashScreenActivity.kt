@@ -1,11 +1,15 @@
 package com.ngodinglah.bwamov
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.ngodinglah.bwamov.onboarding.OnboardingOneActivity
+
+/*
+    ini adalah splash screen
+ */
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
