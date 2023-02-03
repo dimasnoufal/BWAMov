@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "357020140990",
+    "firebase_url": "https://bwa-project-8fa68-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bwa-project-8fa68",
+    "storage_bucket": "bwa-project-8fa68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357020140990:android:80cd3e48c4f740c93fe5ef",
+        "android_client_info": {
+          "package_name": "com.ngodinglah.bwamov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357020140990-86ekfiqem0g8sl4mjtefih94a2u2f8oj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe5wyK9mK-C9DV-aj8UuJQ7geS3JsCmw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357020140990-86ekfiqem0g8sl4mjtefih94a2u2f8oj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
