@@ -1,15 +1,23 @@
 package com.ngodinglah.bwamov.sign
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
@@ -22,7 +30,7 @@ import java.util.*
 
 class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
 
-    //    val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_IMAGE_CAPTURE = 1
     var statusAdd: Boolean = false
     lateinit var filePath: Uri
 
@@ -46,7 +54,6 @@ class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
         mFirebaseDatabase = mFirebaseIntance.getReference("User")
 
         user = intent.getParcelableExtra("data")!!
-//        user = intent.getParcelableExtra<User>("data")!!
         tv_welcome.text = "Welcome\n" + user.nama
 
         iv_add.setOnClickListener {
@@ -56,10 +63,10 @@ class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
                 iv_add.setImageResource(R.drawable.ic_btn_add)
                 iv_profile.setImageResource(R.drawable.user_pic)
             } else {
-//                Dexter.withActivity(this@SignUpPhotoScreenActivity)
-//                    .withPermission(Manifest.permission.CAMERA)
-//                    .withListener(this@SignUpPhotoScreenActivity)
-//                    .check()
+                Dexter.withActivity(this@SignUpPhotoScreenActivity)
+                    .withPermission(Manifest.permission.CAMERA)
+                    .withListener(this@SignUpPhotoScreenActivity)
+                    .check()
 
 //                ImagePicker.with(this)
 //                    .cameraOnly()    //User can only capture image using Camera
@@ -148,11 +155,11 @@ class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
     }
 
     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//            takePictureIntent.resolveActivity(packageManager)?.also {
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//            }
-//        }
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
 
 //        ImagePicker.with(this)
 //            .cameraOnly()    //User can only capture image using Camera
@@ -175,20 +182,42 @@ class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
         ).show()
     }
 
-//    @SuppressLint("MissingSuperCall")
+    @SuppressLint("MissingSuperCall")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            var bitmap = data?.extras?.get("data") as Bitmap
+            statusAdd = true
+
+            filePath = data?.data!!
+            Glide.with(this@SignUpPhotoScreenActivity)
+                .load(bitmap)
+                .apply(RequestOptions.circleCropTransform())
+                .into(iv_profile)
+
+            btn_simpan_lanjutkan.visibility = View.VISIBLE
+            iv_add.setImageResource(R.drawable.ic_btn_delete)
+        }
+    }
+
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-//            var bitmap = data?.extras?.get("data") as Bitmap
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == Activity.RESULT_OK) {
+//            //Image Uri will not be null for RESULT_OK
 //            statusAdd = true
+//            filePath = data?.data!!
 //
-//            filePath = data.getData()!!
-//            Glide.with(this@SignUpPhotoScreenActivity)
-//                .load(bitmap)
+//            Glide.with(this)
+//                .load(filePath)
 //                .apply(RequestOptions.circleCropTransform())
 //                .into(iv_profile)
 //
 //            btn_simpan_lanjutkan.visibility = View.VISIBLE
 //            iv_add.setImageResource(R.drawable.ic_btn_delete)
+//
+//        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+//            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+//        } else {
+//            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
 //        }
 //    }
 

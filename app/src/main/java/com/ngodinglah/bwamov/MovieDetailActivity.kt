@@ -26,7 +26,7 @@ class MovieDetailActivity : AppCompatActivity() {
             .child(data!!.judul.toString())
             .child("play")
 
-        tv_title_movie_detail.text = data!!.judul
+        tv_title_movie_detail.text = data.judul
         tv_genre_movie_detail.text = data.genre
         tv_deskripsi_movie_detail.text = data.desc
         tv_rate_movie_detail.text = data.rating
@@ -41,7 +41,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         btn_pilih_bangku.setOnClickListener {
             var pilihBangku = Intent(this@MovieDetailActivity, PilihBangkuScreenActivity::class.java)
-                .putExtra("data", dataList)
+                .putExtra("data", data)
             startActivity(pilihBangku)
         }
     }

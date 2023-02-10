@@ -1,5 +1,6 @@
 package com.ngodinglah.bwamov.home.setting
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ngodinglah.bwamov.R
 import com.ngodinglah.bwamov.utils.Preferences
+import com.ngodinglah.bwamov.wallet.MyWalletActivity
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,6 +57,11 @@ class SettingFragment : Fragment() {
             .load(preferences.getValues("url"))
             .apply(RequestOptions.circleCropTransform())
             .into(iv_profile)
+
+        tv_my_wallet.setOnClickListener {
+            val wallet = Intent(activity, MyWalletActivity::class.java)
+            startActivity(wallet)
+        }
     }
 
     companion object {

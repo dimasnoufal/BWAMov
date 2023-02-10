@@ -1,9 +1,9 @@
 package com.ngodinglah.bwamov.sign
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.ngodinglah.bwamov.R
 import com.ngodinglah.bwamov.utils.Preferences
@@ -89,8 +89,8 @@ class SignUpActivity : AppCompatActivity() {
                     preferences.setValues("status", "1")
 
                     finishAffinity()
-                    val goSignUpPhotoScreen = Intent(this@SignUpActivity, SignUpPhotoScreenActivity::class.java)
-                    goSignUpPhotoScreen.putExtra("username", data.nama)
+                    var goSignUpPhotoScreen = Intent(this@SignUpActivity, SignUpPhotoScreenActivity::class.java)
+                    goSignUpPhotoScreen.putExtra("data", data)
                     startActivity(goSignUpPhotoScreen)
 
                     Toast.makeText(this@SignUpActivity, "Selamat user terdaftar",
